@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h2>Welcome, {{ request.user.name|default:request.user.email }}</h2>
+    <p>This is your dashboard.</p>
+
+    <div class="dashboard-actions">
+        <a class="btn btn-primary" href="{% url 'accounts:logout' %}">Logout</a>
+    </div>
+</div>
+{% endblock %}
+

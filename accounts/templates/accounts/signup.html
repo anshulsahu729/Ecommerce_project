@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Signup{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 500px;">
+    <h2 class="text-center mb-4">Signup</h2>
+
+    <form method="POST" class="border p-4 shadow-sm bg-light rounded">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            {{ form.name.label_tag }}
+            <input type="text" name="{{ form.name.name }}" class="form-control" >
+            {% if form.name.errors %}
+                <div class="text-danger small">{{ form.name.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.email.label_tag }}
+            <input type="email" name="{{ form.email.name }}" class="form-control" >
+            {% if form.email.errors %}
+                <div class="text-danger small">{{ form.email.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.password.label_tag }}
+            <input type="password" name="{{ form.password.name }}" class="form-control">
+            {% if form.password.errors %}
+                <div class="text-danger small">{{ form.password.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.confirm_password.label_tag }}
+            <input type="password" name="{{ form.confirm_password.name }}" class="form-control">
+            {% if form.confirm_password.errors %}
+                <div class="text-danger small">{{ form.confirm_password.errors }}</div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Register</button>
+    </form>
+
+    <p class="text-center mt-3">
+        Already have an account? 
+        <a href="{% url 'accounts:login' %}">Login here</a>
+    </p>
+</div>
+{% endblock %}

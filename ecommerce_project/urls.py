@@ -23,6 +23,6 @@ urlpatterns = [
     # path('blog/', include('blog.urls', namespace='blog')),
     # path('newsletter/', include('newsletter.urls', namespace='newsletter')),
     # path('dashboard/', include('dashboard.urls', namespace='dashboard')),
-    # path('accounts/', include('accounts.urls', namespace='accounts')),
+    path('auth/', include('accounts.urls', namespace='accounts')),
     # path('api/', include('crm_api.urls', namespace='crm_api')),
 ]
