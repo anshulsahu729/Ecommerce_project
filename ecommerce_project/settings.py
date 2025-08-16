@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'crm_api',
     'blog',
     'accounts',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
