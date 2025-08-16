@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        {% if post.image %}
+            <img src="{{ post.image.url }}" class="card-img-top img-fluid" alt="{{ post.title }}">
+        {% endif %}
+        
+        <div class="card-body">
+            <h2 class="card-title">{{ post.title }}</h2>
+            <p class="card-text">{{ post.content|linebreaks }}</p>
+
+            <div class="d-flex justify-content-start gap-2 mt-3">
+                <a href="{% url 'blog:blog_update' post.pk %}" class="btn btn-warning">
+                    <i class="bi bi-pencil"></i> Edit
+                </a>
+                <a href="{% url 'blog:blog_delete' post.pk %}" class="btn btn-danger">
+                    <i class="bi bi-trash"></i> Delete
+                </a>
+                <a href="{% url 'blog:blog_list' %}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Back
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
