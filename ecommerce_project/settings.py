@@ -27,9 +27,12 @@ INSTALLED_APPS = [
     'newsletter',
     'dashboard',
     'crm_api',
+    'core',
+    'cart',
     'blog',
     'accounts',
     'widget_tweaks',
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -47,18 +50,19 @@ ROOT_URLCONF = 'ecommerce_project.urls'  # Correct project name
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # Global templates folder
-        'APP_DIRS': True,
+        'DIRS': [BASE_DIR / "templates"],  # global template directory
+        'APP_DIRS': True,   # enables searching inside app/templates/
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'ecommerce_project.wsgi.application'
 
@@ -110,3 +114,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
 AUTHENTICATION_BACKENDS = ['accounts.backends.SHAAuthBackend']
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticatedOrReadOnly"
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
+    ],
+}

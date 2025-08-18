@@ -1,8 +1,7 @@
 from django.urls import path
 from . import views
 
-app_name = 'store'  # ✅ Namespace for reverse URL lookups
-
+app_name = 'store'  
 urlpatterns = [
     path('',views.home,name='home'),
     # ---------------- Category URLs ----------------
@@ -13,6 +12,7 @@ urlpatterns = [
     
     # ---------------- Product URLs ----------------
     path("products/", views.product_list, name="product_list"),
+    path("product/<int:pk>/", views.product_detail, name="product_detail"),
     path("products/create/", views.product_create, name="product_create"),
     path('products/<int:pk>/edit/', views.product_update, name='product_edit'),
     path('products/<int:pk>/delete/', views.product_delete, name='product_delete'),
