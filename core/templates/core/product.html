@@ -5,12 +5,20 @@
 
 {% block content %}
 <div class="container my-5">
-    <h2 class="text-center fw-bold mb-4">🛍️ Our Products</h2>
+    <h2 class="text-center fw-bold mb-5">🛍️ Our Products</h2>
 
     <div class="row g-4">
         {% for product in products %}
         <div class="col-md-4 col-lg-3">
-            <div class="card h-100 shadow-sm border-0 product-card">
+            <div class="card h-100 shadow-sm border-0 product-card position-relative">
+                
+                <!-- Badge for New or Sale -->
+                {% if product.is_featured %}
+                <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-3 py-2">New</span>
+                {% elif product.discount_percentage %}
+                <span class="badge bg-success position-absolute top-0 start-0 m-2 px-3 py-2">-{{ product.discount_percentage }}%</span>
+                {% endif %}
+
                 <!-- Product Image -->
                 <img src="{{ product.image.url }}" class="card-img-top rounded-top" alt="{{ product.name }}">
 
@@ -25,8 +33,34 @@
                     <p class="text-muted small">{{ product.description|truncatewords:12 }}</p>
                     
                     <!-- Buttons -->
-                    <a href="{% url 'core:product_detail' product.id %}" class="btn btn-outline-primary btn-sm">View Details</a>
-                    <a href="{% url 'core:add_to_cart' product.id %}" class="btn btn-success btn-sm">Add to Cart</a>
+                    <div class="d-flex justify-content-center gap-2">
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#quickView{{ product.id }}">
+                            View Details
+                        </button>
+                        <a href="{% url 'cart:cart_add' product.id %}" class="btn btn-success btn-sm">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick View Modal -->
+        <div class="modal fade" id="quickView{{ product.id }}" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content rounded-3 shadow-lg">
+                    <div class="modal-body row p-4">
+                        <div class="col-md-6">
+                            <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="fw-bold">{{ product.name }}</h4>
+                            <p class="text-muted">Price: ₹{{ product.price }}</p>
+                            <p class="small">{{ product.description|truncatewords:40 }}</p>
+                            <a href="{% url 'cart:cart_add' product.id %}" class="btn btn-success rounded-pill mb-2">
+                                <i class="bi bi-cart-check"></i> Add to Cart
+                            </a>
+                            <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -45,7 +79,10 @@
 }
 .product-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+.badge {
+    font-size: 0.8rem;
 }
 </style>
 {% endblock %}

@@ -28,13 +28,17 @@
   </button>
 </div>
 
+<!-- Featured Products Slider -->
+<div class="container mb-5">
+  <h3 class="fw-bold text-center mb-4">🌟 Featured Products</h3>
+  
 <!-- Products Section -->
-<div class="container">
+
   {% for category, products in category_products.items %}
   <div class="mb-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h3 class="fw-bold text-primary">{{ category.name }}</h3>
-      <a href="#" class="btn btn-outline-dark btn-sm rounded-pill">
+      <a href="{% url 'core:category_products' category.id %}" class="btn btn-outline-dark btn-sm rounded-pill">
         View All →
       </a>
     </div>
@@ -90,12 +94,63 @@
   {% endfor %}
 </div>
 
+
+
+<!-- Special Offers Section -->
+<div class="container mb-5">
+  <div class="bg-light p-5 rounded shadow-sm text-center">
+    <h3 class="fw-bold mb-3">🎉 Special Offers</h3>
+    <p class="lead mb-4">Grab exciting discounts before they run out!</p>
+    <a href="#" class="btn btn-lg btn-danger rounded-pill">Shop Now</a>
+  </div>
+</div>
+
+<!-- Customer Testimonials -->
+<div class="container mb-5">
+  <h3 class="fw-bold text-center mb-4">💬 Customer Testimonials</h3>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm p-3">
+        <p>"Amazing products and fast delivery. Highly recommended!"</p>
+        <h6 class="fw-bold mb-0">- Priya S.</h6>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm p-3">
+        <p>"Great customer service and quality products. Will buy again."</p>
+        <h6 class="fw-bold mb-0">- Raj K.</h6>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm p-3">
+        <p>"Wide range of products at affordable prices. Loved it!"</p>
+        <h6 class="fw-bold mb-0">- Anjali T.</h6>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Newsletter Signup -->
+<div class="container mb-5">
+  <div class="bg-primary text-light p-5 rounded shadow-sm text-center">
+    <h3 class="fw-bold mb-3">📧 Subscribe to Our Newsletter</h3>
+    <p class="mb-4">Get updates on new arrivals, special offers, and more.</p>
+    <form method="post" class="row justify-content-center">
+      {% csrf_token %}
+      <div class="col-md-6 col-sm-8 d-flex gap-2">
+        <input type="email" name="email" class="form-control rounded-pill" placeholder="Enter your email">
+        <button type="submit" class="btn btn-dark rounded-pill">Subscribe</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- Custom CSS -->
 <style>
   .product-card:hover {
     transform: translateY(-5px);
     transition: 0.3s;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
   }
   .text-shadow {
     text-shadow: 2px 2px 10px rgba(0,0,0,0.6);

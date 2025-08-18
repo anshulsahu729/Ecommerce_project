@@ -3,7 +3,7 @@ from .forms import CheckoutForm
 from django.contrib.auth.decorators import login_required
 from .models import Order, OrderItem
 from store.models import Product
-@login_required
+@login_required(login_url='accounts:login')
 def checkout(request):
     cart = request.session.get("cart", {})
     if not cart:

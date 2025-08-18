@@ -32,6 +32,9 @@ INSTALLED_APPS = [
     'orders',
     'blog',
     'accounts',
+    'adminpanel',
+
+
     'widget_tweaks',
     "rest_framework",
 ]

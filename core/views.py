@@ -16,17 +16,8 @@ def home(request):
         "category_products": category_products,
     })
 def product_list(request):
-    categories = Category.objects.all()[:4]  
-
-    category_products = {}
-    for category in categories:
-        category_products[category] = Product.objects.filter(
-            category=category, active=True
-        )[:4]
-
-    return render(request, "core/home.html", {
-        "category_products": category_products,
-    })
+    products = Product.objects.filter(active=True)
+    return render(request, "core/product.html", {"products": products})
 
 def blog_list(request):
     blogs = BlogPost.objects.filter(active=True,deleted=False).order_by("-published_date") 

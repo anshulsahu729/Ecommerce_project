@@ -24,7 +24,7 @@
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-body">
                     <h5 class="card-title text-success">Wishlist</h5>
-                    <h2 class="fw-bold">{{ wishlist_count }}</h2>
+                    <h2 class="fw-bold">0</h2>
                     <p class="text-muted">Saved items</p>
                 </div>
             </div>
@@ -33,7 +33,7 @@
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-body">
                     <h5 class="card-title text-warning">Cart</h5>
-                    <h2 class="fw-bold">{{ cart_items }}</h2>
+                    <h2 class="fw-bold">{{ cart_items_count }}</h2>
                     <p class="text-muted">Items in cart</p>
                 </div>
             </div>
@@ -63,7 +63,7 @@
                             {% for order in orders %}
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Order #{{ order.id }} - {{ order.created_at|date:"M d, Y" }}
-                                <span class="badge bg-primary">{{ order.status }}</span>
+                                <span class="badge bg-primary">{{ order.status  }}</span>
                             </li>
                             {% endfor %}
                         </ul>

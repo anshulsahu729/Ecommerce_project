@@ -3,6 +3,9 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from .models import User
 from .forms import SignupForm, LoginForm
+from orders.models import Order
+from store.models import Product
+
 
 def signup_view(request):
     if request.method == 'POST':
@@ -41,4 +44,22 @@ def logout_view(request):
 
 @login_required
 def dashboard_view(request):
-    return render(request, 'accounts/dashboard.html')
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')[:5]
+    saved_items = Product.objects.filter(is_featured=True)[:3]
+
+    total_orders = orders.count()
+    cart_items_count = sum(request.session.get('cart', {}).values())
+
+  
+
+
+    context = {
+        'orders': orders,
+        'saved_items': saved_items,
+        'total_orders': total_orders,
+        'cart_items_count': cart_items_count,
+        
+        # You can add wishlist_count or saved_items_count if you implement those models
+    }
+ 
+    return render(request, 'accounts/dashboard.html', context)

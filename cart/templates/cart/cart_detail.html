@@ -1,34 +1,54 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container mt-5">
-  <h2>Your Cart</h2>
-  {% if cart_items %}
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Product</th>
-          <th>Quantity</th>
-          <th>Subtotal</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
+    <h2 class="mb-4">🛒 Your Cart</h2>
+
+    {% if cart_items %}
+    <div class="row g-4">
         {% for item in cart_items %}
-        <tr>
-          <td>{{ item.product.name }}</td>
-          <td>{{ item.qty }}</td>
-          <td>₹{{ item.subtotal }}</td>
-          <td>
-            <a href="{% url 'cart:cart_remove' item.product.id %}" class="btn btn-danger btn-sm">Remove</a>
-          </td>
-        </tr>
+        <div class="col-4">
+            <div class="card shadow-sm border-0 p-3 d-flex flex-row align-items-center">
+                
+                <!-- Product Image -->
+                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-thumbnail me-3" style="width:100px; height:100px; object-fit:cover;">
+                
+                <!-- Product Details -->
+                <div class="flex-grow-1">
+                    <h5 class="fw-bold">{{ item.product.name }}</h5>
+                    <p class="mb-1">Price: ₹{{ item.product.price }}</p>
+                    <p class="mb-0">Quantity: {{ item.qty }}</p>
+                    <p class="mb-0">Subtotal: ₹{{ item.subtotal }}</p>
+                    <a href="{% url 'cart:cart_remove' item.product.id %}" class="btn btn-danger btn-sm">Remove</a>
+                
+                </div>
+
+                <!-- Remove Button -->
+                <div class="ms-3">
+                    </div>
+            </div>
+        </div>
         {% endfor %}
-      </tbody>
-    </table>
-    <h4>Total: ₹{{ total }}</h4>
-    <a href="{% url 'orders:checkout' %}" class="btn btn-success">Proceed to Checkout</a>
-  {% else %}
-    <p>Your cart is empty.</p>
-  {% endif %}
+    </div>
+
+    <div class="mt-4 d-flex justify-content-between align-items-center">
+        <h4>Total: ₹{{ total }}</h4>
+        <a href="{% url 'orders:checkout' %}" class="btn btn-success btn-lg">Proceed to Checkout</a>
+    </div>
+
+    {% else %}
+    <div class="text-center mt-5">
+        <p class="lead text-muted">Your cart is empty.</p>
+        <a href="{% url 'core:product_list' %}" class="btn btn-primary mt-3">Continue Shopping</a>
+    </div>
+    {% endif %}
 </div>
+
+<!-- Extra CSS -->
+<style>
+.card:hover {
+    transform: translateY(-5px);
+    transition: 0.3s;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+</style>
 {% endblock %}
