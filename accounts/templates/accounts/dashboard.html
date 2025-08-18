@@ -1,14 +1,131 @@
 {% extends "base.html" %}
-
-{% block title %}Dashboard{% endblock %}
+{% load static %}
 
 {% block content %}
-<div class="dashboard-container">
-    <h2>Welcome, {{ request.user.name|default:request.user.email }}</h2>
-    <p>This is your dashboard.</p>
+<div class="container mt-5">
+    <!-- Welcome Section -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">👋 Welcome, {{ user.username }}!</h1>
+        <p class="lead text-muted">Here's your personalized dashboard overview.</p>
+    </div>
 
-    <div class="dashboard-actions">
-        <a class="btn btn-primary" href="{% url 'accounts:logout' %}">Logout</a>
+    <!-- User Stats -->
+    <div class="row text-center mb-4">
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Orders</h5>
+                    <h2 class="fw-bold">{{ total_orders }}</h2>
+                    <p class="text-muted">Total placed</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-success">Wishlist</h5>
+                    <h2 class="fw-bold">{{ wishlist_count }}</h2>
+                    <p class="text-muted">Saved items</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-warning">Cart</h5>
+                    <h2 class="fw-bold">{{ cart_items }}</h2>
+                    <p class="text-muted">Items in cart</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs Section -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body">
+            <ul class="nav nav-tabs mb-3" id="dashboardTabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab">📦 Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="wishlist-tab" data-bs-toggle="tab" href="#wishlist" role="tab">❤️ Wishlist</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="settings-tab" data-bs-toggle="tab" href="#settings" role="tab">⚙️ Settings</a>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="dashboardTabsContent">
+                <!-- Orders Tab -->
+                <div class="tab-pane fade show active" id="orders" role="tabpanel">
+                    {% if orders %}
+                        <ul class="list-group">
+                            {% for order in orders %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Order #{{ order.id }} - {{ order.created_at|date:"M d, Y" }}
+                                <span class="badge bg-primary">{{ order.status }}</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">You have no orders yet.</p>
+                    {% endif %}
+                </div>
+
+                <!-- Wishlist Tab -->
+                <div class="tab-pane fade" id="wishlist" role="tabpanel">
+                    {% if wishlist %}
+                        <div class="row">
+                            {% for product in wishlist %}
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100 shadow-sm">
+                                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                                    <div class="card-body text-center">
+                                        <h6>{{ product.name }}</h6>
+                                        <p class="text-muted">₹{{ product.price }}</p>
+                                        <a href="#" class="btn btn-sm btn-outline-danger">Remove</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">Your wishlist is empty.</p>
+                    {% endif %}
+                </div>
+
+                <!-- Settings Tab -->
+                <div class="tab-pane fade" id="settings" role="tabpanel">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" value="{{ user.email }}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Change Password</label>
+                            <input type="password" class="form-control" placeholder="Enter new password">
+                        </div>
+                        <button class="btn btn-primary">Update Settings</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Section -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h5 class="mb-3">Your Progress</h5>
+            <p class="mb-1">Profile Completion</p>
+            <div class="progress mb-3">
+                <div class="progress-bar bg-success" role="progressbar" style="width: {{ profile_completion }}%; " aria-valuenow="{{ profile_completion }}" aria-valuemin="0" aria-valuemax="100">{{ profile_completion }}%</div>
+            </div>
+            <p class="mb-1">Orders Completed</p>
+            <div class="progress">
+                <div class="progress-bar bg-info" role="progressbar" style="width: {{ orders_progress }}%;" aria-valuenow="{{ orders_progress }}" aria-valuemin="0" aria-valuemax="100">{{ orders_progress }}%</div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

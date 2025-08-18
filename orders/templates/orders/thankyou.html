@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5 text-center">
+  <h2>Thank you for your order!</h2>
+  <p>We will deliver your items soon. Please visit us again!</p>
+  <a href="{% url 'core:home' %}" class="btn btn-secondary mt-3">Back to Home</a>
+</div>
+{% endblock %}

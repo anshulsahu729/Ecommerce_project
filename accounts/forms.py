@@ -9,6 +9,12 @@ class SignupForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['name', 'email', 'password', 'confirm_password']
+    widgets = {
+        'name': forms.TextInput(attrs={'class': 'form-control'}),
+        'email': forms.EmailInput(attrs={'class': 'form-control'}),
+        'password': forms.PasswordInput(attrs={'class': 'form-control'}),
+        'confirm_password': forms.PasswordInput(attrs={'class': 'form-control'}),
+    }
 
     def clean(self):
         cleaned_data = super().clean()
@@ -20,5 +26,5 @@ class SignupForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))

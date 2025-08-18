@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'crm_api',
     'core',
     'cart',
+    'orders',
     'blog',
     'accounts',
     'widget_tweaks',

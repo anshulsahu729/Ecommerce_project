@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ blog.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h1 class="fw-bold">{{ blog.title }}</h1>
+        <p class="text-muted">{{ blog.published_date|date:"F d, Y" }}</p>
+
+        {% if blog.image %}
+        <img src="{{ blog.image.url }}" class="img-fluid rounded mb-4" alt="{{ blog.title }}">
+        {% endif %}
+
+        <div class="blog-body">
+            {{ blog.body|safe }}
+        </div>
+
+        <a href="{% url 'core:blog_list' %}" class="btn btn-secondary mt-3">← Back to Blogs</a>
+    </div>
+</div>
+{% endblock %}

@@ -9,29 +9,6 @@ from newsletter.forms import NewsletterSignupForm
 
 
 
-def home(request):
-    # Featured products
-    products = Product.objects.filter(active=True)[:6]
-
-    # Latest blogs with pagination
-    blog_list = BlogPost.objects.all().order_by('-published_date')
-    paginator = Paginator(blog_list, 3)  # 3 per page
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-
-    # Newsletter form
-    form = NewsletterSignupForm()
-
-    return render(request, "store/home.html", {
-    "products": products,
-    "blog_list": blog_list,
-    "page_obj": page_obj,
-    "form": form,
-})
-
-    
-
-
 
 
 # -------------------- CATEGORY --------------------

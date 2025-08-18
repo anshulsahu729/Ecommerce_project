@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center fw-bold mb-4">🛍️ Our Products</h2>
+
+    <div class="row g-4">
+        {% for product in products %}
+        <div class="col-md-4 col-lg-3">
+            <div class="card h-100 shadow-sm border-0 product-card">
+                <!-- Product Image -->
+                <img src="{{ product.image.url }}" class="card-img-top rounded-top" alt="{{ product.name }}">
+
+                <div class="card-body text-center">
+                    <!-- Product Name -->
+                    <h5 class="card-title fw-bold">{{ product.name }}</h5>
+                    
+                    <!-- Product Price -->
+                    <p class="card-text text-success fw-semibold">₹{{ product.price }}</p>
+                    
+                    <!-- Short Description -->
+                    <p class="text-muted small">{{ product.description|truncatewords:12 }}</p>
+                    
+                    <!-- Buttons -->
+                    <a href="{% url 'core:product_detail' product.id %}" class="btn btn-outline-primary btn-sm">View Details</a>
+                    <a href="{% url 'core:add_to_cart' product.id %}" class="btn btn-success btn-sm">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="text-center">
+            <p class="lead text-muted">No products available.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Extra CSS -->
+<style>
+.product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+</style>
+{% endblock %}
