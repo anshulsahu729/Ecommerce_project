@@ -35,3 +35,16 @@ def checkout(request):
 def thankyou(request):
     
     return render(request, "orders/thankyou.html")
+def order_list(request):
+    orders = Order.objects.all().select_related("user")
+    user_names = [order.user.name for order in orders]
+    status = [order.status for order in orders]
+    total_amounts = [order.total_amount for order in orders]
+    context={
+        "orders": orders,
+        "user_names": user_names,
+        "status": status,
+        "total_amounts": total_amounts
+    }
+
+    return render(request, "orders/order_list.html", context)

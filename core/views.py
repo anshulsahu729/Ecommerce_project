@@ -17,6 +17,8 @@ def home(request):
     })
 def product_list(request):
     products = Product.objects.filter(active=True)
+    for i in products:
+        print(i.image.url)
     return render(request, "core/product.html", {"products": products})
 
 def blog_list(request):

@@ -6,6 +6,9 @@ from .forms import SignupForm, LoginForm
 from orders.models import Order
 from store.models import Product
 
+def user_list(request):
+    users = User.objects.all()
+    return render(request, 'accounts/user_list.html', {'users': users})
 
 def signup_view(request):
     if request.method == 'POST':

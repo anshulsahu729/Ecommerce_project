@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
+from ecommerce_project import settings
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('store/', include('store.urls', namespace='store')),
@@ -25,7 +27,10 @@ urlpatterns = [
     path('core/', include('core.urls', namespace='core')),
     path('orders/', include('orders.urls', namespace='orders')),
     path('newsletter/', include('newsletter.urls', namespace='newsletter')),
-    # path('dashboard/', include('dashboard.urls', namespace='dashboard')),
+    path('adminpanel/', include('adminpanel.urls', namespace='adminpanel')),
     path('auth/', include('accounts.urls', namespace='accounts')),
     # path('api/', include('crm_api.urls', namespace='crm_api')),
 ]
+if settings.DEBUG:
+    from django.conf.urls.static import static
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

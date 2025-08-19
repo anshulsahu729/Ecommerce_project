@@ -58,6 +58,7 @@
                             <a href="{% url 'cart:cart_add' product.id %}" class="btn btn-success rounded-pill mb-2">
                                 <i class="bi bi-cart-check"></i> Add to Cart
                             </a>
+                            
                             <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -69,6 +70,8 @@
             <p class="lead text-muted">No products available.</p>
         </div>
         {% endfor %}
+
+
     </div>
 </div>
 
@@ -85,4 +88,5 @@
     font-size: 0.8rem;
 }
 </style>
+
 {% endblock %}
