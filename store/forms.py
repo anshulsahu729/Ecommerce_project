@@ -13,12 +13,15 @@ class CategoryForm(forms.ModelForm):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['category', 'name', 'price', 'stock', 'image', 'active']
+        fields = ['category', 'name', 'price', 'description', 'stock', 'image', 'active']
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Enter product name'}),
             'price': forms.NumberInput(attrs={'placeholder': 'Enter price'}),
             'stock': forms.NumberInput(attrs={'placeholder': 'Enter stock quantity'}),
             'image': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+            'description': forms.Textarea(attrs={'placeholder': 'Enter product description', 'rows': 3}),
+            'active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'category': forms.Select(attrs={'class': 'form-select'}),
         }
 
 class OrderForm(forms.ModelForm):

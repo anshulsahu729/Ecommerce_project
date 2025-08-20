@@ -59,7 +59,11 @@ def category_delete(request, pk):
 @login_required(login_url='accounts:login')
 def product_list(request):
     products = Product.objects.all()
+
     return render(request, "store/product_list.html", {"products": products})
+
+
+
 
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
@@ -75,6 +79,7 @@ def product_create(request):
     else:
         form = ProductForm()
     return render(request, "store/product_form.html", {"form": form, 'title': 'Add Product'})
+
 
 @login_required(login_url='accounts:login')
 def product_update(request, pk):

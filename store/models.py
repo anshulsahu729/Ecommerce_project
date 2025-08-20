@@ -21,18 +21,28 @@ class Category(models.Model):
         return self.name
 
 # Product model
+status_choices = [
+    ("in_stock", "In Stock"),
+    ("out_of_stock", "Out of Stock"),
+    ("preorder", "Preorder"),
+]
+
 class Product(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="products")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="products"  )
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField()
     image = models.ImageField(upload_to="products/")
     active = models.BooleanField(default=True)
+    description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     is_featured = models.BooleanField(default=False)  
 
+
+
     def __str__(self):
         return self.name
+    
 
 # Order model
 class Order(models.Model):

@@ -119,11 +119,11 @@
             <h5 class="mb-3">Your Progress</h5>
             <p class="mb-1">Profile Completion</p>
             <div class="progress mb-3">
-                <div class="progress-bar bg-success" role="progressbar" style="width: {{ profile_completion }};" aria-valuenow="{{ profile_completion }}" aria-valuemin="0" aria-valuemax="100">{{ profile_completion }}%</div>
+                <div class="progress-bar bg-success" role="progressbar"  {{ profile_completion }} aria-valuenow="{{ profile_completion }}" aria-valuemin="0" aria-valuemax="100">{{ profile_completion }}%</div>
             </div>
             <p class="mb-1">Orders Completed</p>
             <div class="progress">
-                <div class="progress-bar bg-info" role="progressbar" style="width: {{ orders_progress }}%;" aria-valuenow="{{ orders_progress }}" aria-valuemin="0" aria-valuemax="100">{{ orders_progress }}%</div>
+                <div class="progress-bar bg-info" role="progressbar"  {{orders_progress }} aria-valuenow="{{ orders_progress }}" aria-valuemin="0" aria-valuemax="100">{{ orders_progress }}%</div>
             </div>
         </div>
     </div>
